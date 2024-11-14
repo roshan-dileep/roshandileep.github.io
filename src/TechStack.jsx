@@ -1,9 +1,9 @@
-import { useScroll, motion } from "framer-motion";
-import React, { useState } from "react";
+import { motion } from "framer-motion";
+import React from "react";
 
-export default function TechStack({ img, descriptor }) {
-    const [isOpen, setIsOpen] = useState(false);
-    const { scrollYProgress } = useScroll(); // Correct usage of `useScroll`
+export default function TechStack({ img, descriptor, delays }) {
+    // Split the descriptor into individual characters for typewriter effect
+    const characters = descriptor.split('');
 
     return (
         <div
@@ -11,54 +11,54 @@ export default function TechStack({ img, descriptor }) {
                 display: 'flex',
                 flexDirection: 'column', // Stack items vertically
                 alignItems: 'center',
-                textAlign: 'center'
+                textAlign: 'center',
             }}
         >
-            <button
-                onClick={() => setIsOpen(!isOpen)}
+            {/* Circular Image - No animations */}
+            <div
                 style={{
-                    padding: '5px 10px', // Reduced padding for a smaller button
-                    backgroundColor: 'white',
-                    color: 'black',
-                    border: 'none',
-                    borderRadius: '180px',
-                    cursor: 'pointer',
-                    width: '100px',
-                    height: '100px',
-                    display: 'flex', // Use flex to center the image inside the button
+                    width: '100px', // Circle size
+                    height: '100px', // Circle size
+                    borderRadius: '50%', // Make the div circular
+                    display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    overflow: 'hidden', // Ensure the image stays within the circle
+                    backgroundColor: 'white', // Background color of the circle
                 }}
             >
                 <img
                     src={img}
                     alt="icon"
                     style={{
-                        width: "70px",
-                        height: "60px",
-                        objectFit: "cover"
+                        width: "70px", // Image size
+                        height: "70px", // Image size (make it fit the circle)
+                        objectFit: "cover", // Ensure the image covers the circle area
                     }}
                 />
-            </button>
+            </div>
+
+            {/* Typing Effect Text Animation */}
             <div
                 style={{
-                    marginTop: '10px', // Space between button and text
-                    transition: 'max-width 0.5s ease',
-                    overflow: 'hidden',
+                    marginTop: '10px', // Space between the image and text
                     whiteSpace: 'nowrap',
-                    maxWidth: isOpen ? '100%' : '0',
                 }}
             >
-                {isOpen && (
-                    <motion.p
-                        style={{ margin: '0', color: 'white' }}
+                {characters.map((char, index) => (
+                    <motion.span
+                        key={index}
                         initial={{ opacity: 0 }} // Start with the text hidden
-                        animate={{ opacity: scrollYProgress.get() }} // Animate based on scroll
-                        transition={{ duration: 0.5 }}
+                        animate={{ opacity: 1 }}  // Fade in each character
+                        transition={{
+                            duration: 0.03, // Faster speed for typing
+                            delay: delays + index * 0.05, // Delay each character by a small amount
+                        }}
+                        style={{ color: 'white' }}
                     >
-                        {descriptor}
-                    </motion.p>
-                )}
+                        {char}
+                    </motion.span>
+                ))}
             </div>
         </div>
     );

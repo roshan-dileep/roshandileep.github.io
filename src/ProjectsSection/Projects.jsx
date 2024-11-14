@@ -15,7 +15,7 @@ export default function Projects() {
     >
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
         transition={{ duration: 2 }}
         style={{
           width: '300px',  // Set a fixed width
@@ -29,7 +29,7 @@ export default function Projects() {
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
         transition={{ duration: 2, delay: 2 }}
         style={{
           width: '300px',  // Same fixed width

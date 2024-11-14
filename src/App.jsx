@@ -1,9 +1,12 @@
 import React, { useRef } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-import Projects from "./Projects";
+import Projects from "./ProjectsSection/Projects";
 import Buttons from "./Buttons";
-import EmIcon from  "./assets/emailicon.png"
-import GitIcon from "./assets/githubicon.png"
+import TechStack from "./TechStack";
+import EmIcon from "./assets/emailicon.png";
+import GitIcon from "./assets/githubicon.png";
+import reactbefore from "./assets/reactbefore.png";
+import pythonbefore from "./assets/pythonbefore.png";
 import DownArrow from "./DownArrow";
 
 function App() {
@@ -17,23 +20,44 @@ function App() {
           top: '10px',
           right: '10px',
           display: 'flex',
-          gap: '10px' // Space between buttons
+          flexDirection: 'column',  // Changes layout to column
+          gap: '10px'
         }}
       >
-        <Buttons img={EmIcon}/>
+        <Buttons img={EmIcon} />
         <Buttons img={GitIcon} />
       </div>
 
       <Parallax pages={4} ref={ref}>
         <ParallaxLayer offset={0} speed={1}>
-          <h2>Welcome to my website</h2>
+          <h2 style={{ textAlign: 'center', color: 'white' }}>Roshan Dileep</h2>
+          <p> Intermediate developer at Homestead High School</p>
           <DownArrow />
         </ParallaxLayer>
 
         <ParallaxLayer offset={1} speed={0.5}>
           <div style={{ textAlign: 'center', paddingTop: '50px' }}>
-            <h2 style={{ marginBottom: '20px' }}>Projects</h2>
+            <h2 style={{ marginBottom: '20px', color: 'white' }}>Projects</h2>
             <Projects />
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer offset={2} speed={0.5}>
+          <div style={{
+              display: 'flex',
+              flexDirection: 'column', // Aligns content vertically
+              alignItems: 'center',
+              height: '100vh'
+          }}>
+            <h2 style={{ textAlign: 'center', color: 'white' }}>Tech Stack</h2>
+            <TechStack
+              img={reactbefore}
+              descriptor={"Built basic websites with React"}
+            />
+            <TechStack
+              img={pythonbefore} 
+              descriptor={"Python development and scripting"}
+            />
           </div>
         </ParallaxLayer>
       </Parallax>

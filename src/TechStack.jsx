@@ -14,7 +14,7 @@ export default function TechStack({ img, descriptor }) {
         >
             {/* Tech Stack Button Section */}
             <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {/* Button to toggle the text */}
+                {/* Button with hover effect */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     style={{
@@ -30,7 +30,9 @@ export default function TechStack({ img, descriptor }) {
                         justifyContent: 'center',
                         alignItems: 'center',
                         fontSize: '18px', // Optional: increase font size if you want bigger text
+                        transition: 'transform 0.3s ease, background-color 0.3s ease', // Smooth hover transitions
                     }}
+                    className="hover-button"
                 >
                     <img
                         src={img}
@@ -44,19 +46,50 @@ export default function TechStack({ img, descriptor }) {
                 </button>
             </div>
 
-            {/* Descriptor Text with Toggle */}
+            {/* Descriptor Text with Reveal Animation */}
             <div
                 style={{
                     marginTop: '10px', // Space between button and text
-                    whiteSpace: 'nowrap',
+                    overflow: 'hidden', // Hide the text until revealed
+                    maxHeight: isOpen ? '100px' : '0', // Smooth height adjustment
+                    transition: 'max-height 0.5s ease-in-out',
                 }}
             >
                 {isOpen && (
-                    <p style={{ margin: '0', color: 'white' }}>
+                    <p 
+                        style={{ 
+                            margin: '0', 
+                            color: 'white', 
+                            animation: isOpen ? 'reveal 1s ease-in-out' : 'none',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden', // Keep text within bounds
+                        }}
+                    >
                         {descriptor}
                     </p>
                 )}
             </div>
+
+            {/* Add styles for hover and keyframes */}
+            <style>
+                {`
+                    @keyframes reveal {
+                        0% {
+                            transform: translateX(-100%);
+                            opacity: 0;
+                        }
+                        100% {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+
+                    .hover-button:hover {
+                        transform: scale(1.1); /* Enlarge the button slightly */
+                        background-color: lightgray; /* Change background color */
+                    }
+                `}
+            </style>
         </div>
     );
 }

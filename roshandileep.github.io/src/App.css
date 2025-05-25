@@ -18,40 +18,33 @@ h1 {
 .buttons {
   margin-top: 20px; /* Space between the text and buttons */
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  gap: 15px; /* Add spacing between buttons */
+  flex-direction: row; /* Place buttons next to each other */
+  gap: 30px; /* Add spacing between buttons */
 }
 
 button {
-  font-size: 1.2rem; /* Scales with viewport */
+  font-size: 1.5rem; /* Bigger font size */
   color: #e9e9e9;
   background: none;
   border: none;
   cursor: pointer;
   text-decoration: none;
+  position: relative; /* Needed for the underline effect */
+  padding: 10px 20px; /* Add padding for a larger clickable area */
 }
 
-button:hover {
-  text-decoration: underline; /* Add underline on hover */
+button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #e9e9e9;
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
-/* Media Queries for Smaller Devices */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2.5rem; /* Smaller font size for smaller screens */
-  }
-
-  button {
-    font-size: 1rem; /* Adjust button size for smaller screens */
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 2rem; /* Further reduce font size for very small screens */
-  }
-
-  button {
-    font-size: 0.9rem; /* Adjust button size for very small screens */
-  }
+button:hover::after {
+  width: 100%; /* Expand the underline to full width */
+  left: 0; /* Start from the left edge */
 }
